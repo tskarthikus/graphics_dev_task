@@ -39,9 +39,9 @@ engine.runRenderLoop(() => {
 window.addEventListener("resize", () => {
 	engine.resize();
 })
-function applyBouncing(selectedMesh: AbstractMesh, frameRate: number, duration: number) {
+function applyBouncing(selectedMesh: AbstractMesh, amplitude: number, duration: number) {
 	const animationKeys = [];
-  
+	const frameRate = 10;
 	const ySlide = new Animation("ySlide", "position.y", frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
 	const keyFrames = []; 
@@ -51,7 +51,7 @@ function applyBouncing(selectedMesh: AbstractMesh, frameRate: number, duration: 
 	});
 	keyFrames.push({
 		frame: frameRate,
-		value: 2
+		value: amplitude
 	});
 	keyFrames.push({
 		frame: 2 * frameRate,
@@ -68,8 +68,10 @@ const editPlane = (uiWindow: HTMLElement, selectedMesh: AbstractMesh) => {
 	const widthRange = document.getElementById('cube-width') as HTMLInputElement;
 	const heightRange = document.getElementById('cube-height') as HTMLInputElement;
 	const depthRange = document.getElementById('cube-depth') as HTMLInputElement;
-	const bouncingSpeed = document.getElementById('cube-bouncespeed') as HTMLInputElement;
-	bouncingSpeed.value = "1";
+	const bouncingSpeedRange = document.getElementById('cube-bouncespeed') as HTMLInputElement;
+	const amplitudeRange = document.getElementById('cube-amplitude') as HTMLInputElement;
+	bouncingSpeedRange.value = "1";
+	amplitudeRange.value = "2";
 	widthRange.value = selectedMesh.scaling.x.toFixed(1);
 	heightRange.value = selectedMesh.scaling.y.toFixed(1);
 	depthRange.value = selectedMesh.scaling.z.toFixed(1);
@@ -86,10 +88,18 @@ const editPlane = (uiWindow: HTMLElement, selectedMesh: AbstractMesh) => {
 		if (selectedMesh)
 			selectedMesh.scaling.z = parseFloat(this.value);
 	});
-	bouncingSpeed.addEventListener('input', function () {
+	bouncingSpeedRange.addEventListener('input', function () {
 		if (selectedMesh){
+			const amplitude = parseFloat(amplitudeRange.value);
 			const speed = parseFloat(this.value);
-			applyBouncing(selectedMesh, 10, speed);
+			applyBouncing(selectedMesh, amplitude, speed);
+		}			
+	});
+	amplitudeRange.addEventListener('input', function () {
+		if (selectedMesh){
+			const amplitude = parseFloat(this.value);
+			const speed = parseFloat(bouncingSpeedRange.value);
+			applyBouncing(selectedMesh, amplitude, speed);
 		}			
 	});
 }
@@ -99,8 +109,10 @@ const editCylinder = (uiWindow: HTMLElement, selectedMesh: AbstractMesh) => {
 	// Set initial values
 	const diameterRange = document.getElementById('cylinder-diameter') as HTMLInputElement;
 	const heightRange = document.getElementById('cylinder-height') as HTMLInputElement;
-	const bouncingSpeed = document.getElementById('cylinder-bouncespeed') as HTMLInputElement;
-	bouncingSpeed.value = "1";
+	const bouncingSpeedRange = document.getElementById('cylinder-bouncespeed') as HTMLInputElement;
+	const amplitudeRange = document.getElementById('cylinder-amplitude') as HTMLInputElement;
+	bouncingSpeedRange.value = "1";
+	amplitudeRange.value = "2";
 	diameterRange.value = selectedMesh.scaling.x.toFixed(1);
 	heightRange.value = selectedMesh.scaling.y.toFixed(1);
 
@@ -114,10 +126,18 @@ const editCylinder = (uiWindow: HTMLElement, selectedMesh: AbstractMesh) => {
 		if (selectedMesh)
 			selectedMesh.scaling.y = parseFloat(this.value);
 	});
-	bouncingSpeed.addEventListener('input', function () {
+	bouncingSpeedRange.addEventListener('input', function () {
 		if (selectedMesh){
+			const amplitude = parseFloat(amplitudeRange.value);
 			const speed = parseFloat(this.value);
-			applyBouncing(selectedMesh, 10, speed);
+			applyBouncing(selectedMesh, amplitude, speed);
+		}			
+	});
+	amplitudeRange.addEventListener('input', function () {
+		if (selectedMesh){
+			const amplitude = parseFloat(this.value);
+			const speed = parseFloat(bouncingSpeedRange.value);
+			applyBouncing(selectedMesh, amplitude, speed);
 		}			
 	});
 }
@@ -127,8 +147,10 @@ const editIcosphere = (uiWindow: HTMLElement, selectedMesh: AbstractMesh) => {
 	// Set initial values
 	const diameterRange = document.getElementById('icosphere-diameter') as HTMLInputElement;
 	const subDivisionsRange = document.getElementById('icosphere-subdivisions') as HTMLInputElement;
-	const bouncingSpeed = document.getElementById('icosphere-bouncespeed') as HTMLInputElement;
-	bouncingSpeed.value = "1";
+	const bouncingSpeedRange = document.getElementById('icosphere-bouncespeed') as HTMLInputElement;
+	const amplitudeRange = document.getElementById('icosphere-amplitude') as HTMLInputElement;
+	bouncingSpeedRange.value = "1";
+	amplitudeRange.value = "2";
 
 	diameterRange.addEventListener('input', function () {
 		if (selectedMesh){
@@ -147,10 +169,18 @@ const editIcosphere = (uiWindow: HTMLElement, selectedMesh: AbstractMesh) => {
 			
 		}
 	});
-	bouncingSpeed.addEventListener('input', function () {
+	bouncingSpeedRange.addEventListener('input', function () {
 		if (selectedMesh){
+			const amplitude = parseFloat(amplitudeRange.value);
 			const speed = parseFloat(this.value);
-			applyBouncing(selectedMesh, 10, speed);
+			applyBouncing(selectedMesh, amplitude, speed);
+		}			
+	});
+	amplitudeRange.addEventListener('input', function () {
+		if (selectedMesh){
+			const amplitude = parseFloat(this.value);
+			const speed = parseFloat(bouncingSpeedRange.value);
+			applyBouncing(selectedMesh, amplitude, speed);
 		}			
 	});
 }
